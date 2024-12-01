@@ -30,6 +30,16 @@ A Chrome extension that uses Claude AI to automatically classify your Gmail mess
 - Content script for Gmail interaction
 - Background service worker for API calls
 
+### Debugging Tips
+- Extension has three separate console contexts:
+  1. Popup console (right-click extension -> Inspect)
+  2. Content script console (Gmail's DevTools)
+  3. Background console (chrome://extensions -> service worker)
+- Popup console closes when popup closes
+- Changes require extension reload and page refresh
+- Background console preserves logs between popup opens
+- Check manifest permissions if messages aren't received
+
 ## Cost Considerations
 - Approximately $0.00533 per email classification
 - Consider usage patterns for your inbox volume
