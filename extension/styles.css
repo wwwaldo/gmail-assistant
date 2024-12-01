@@ -1,0 +1,83 @@
+.claude-assist-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  cursor: pointer !important;
+  font-family: 'Google Sans', Roboto, RobotoDraft, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  border-radius: 24px;
+  border: none;
+  padding: 12px 24px;
+  background-color: #8e89ff;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 9999;
+  transition: all 0.2s ease;
+}
+
+.claude-assist-btn:hover {
+  background-color: #7a76ff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.claude-assist-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed !important;
+  transform: none;
+}
+
+.claude-analysis-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.claude-analysis-content {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.claude-analysis-content h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  color: #1f1f1f;
+  font-size: 18px;
+}
+
+.analysis-text {
+  white-space: pre-wrap;
+  line-height: 1.5;
+  margin: 16px 0;
+  font-size: 14px;
+  color: #202124;
+}
+
+.close-btn {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+  background: #1557b0;
+}
