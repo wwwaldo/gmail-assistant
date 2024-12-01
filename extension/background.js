@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     console.log('Background Script: Processing classification request');
     handleClassification(request.emailContent)
       .then(result => {
-        console.log('Background Script: Classification successful:', result);
+        console.log('Background Script: Classification successful:', request.emailContent, result);
         sendResponse(result);
       })
       .catch(error => {

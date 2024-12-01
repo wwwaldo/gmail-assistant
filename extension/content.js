@@ -67,12 +67,9 @@ async function classifyEmail(emailNode) {
       });
     });
 
-    console.log('Content Script: Classification result:', {
-      category: result.category,
-      isValidCategory: ['TRAVEL', 'WORK', 'OTHER'].includes(result.category)
-    });
-
-    // Maybe add visual indicator of classification here
+    console.log('Content Script: Classification result:', result);
+    
+    // Add classification to email
     const emailContainer = emailNode.querySelector('.adn.ads');
     emailContainer.setAttribute('data-claude-category', result.category);
 
@@ -83,45 +80,16 @@ async function classifyEmail(emailNode) {
 
 // Listen for messages from popup
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'getStats') {
-    const stats = getClassificationStats();
-    sendResponse(stats);
+  if (request.type === 'reset') {
+    // Remove all classification attributes
+    const emails = document.querySelectorAll('.adn.ads');
+    emails.forEach(email => {
+      email.removeAttribute('data-claude-category');
+    });
+    sendResponse({ success: true });
   }
   return true; // Keep channel open for async response
 });
-
-// Gather classification stats
-function getClassificationStats() {
-  const emails = document.querySelectorAll('.adn.ads');
-  const counts = {
-    TRAVEL: 0,
-    WORK: 0,
-    OTHER: 0
-  };
-  
-  const recentEmails = [];
-  
-  emails.forEach(email => {
-    const category = email.getAttribute('data-claude-category');
-    if (category) {
-      counts[category] = (counts[category] || 0) + 1;
-      
-      // Add to recent emails if we have subject
-      const subject = email.closest('tr')?.querySelector('.hP')?.innerText;
-      if (subject && recentEmails.length < 5) {
-        recentEmails.push({
-          subject,
-          category
-        });
-      }
-    }
-  });
-  
-  return {
-    counts,
-    recentEmails
-  };
-}
 
 // Initialize
 watchForNewEmails();
