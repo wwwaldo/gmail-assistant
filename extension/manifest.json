@@ -15,6 +15,9 @@
     "https://mail.google.com/*",
     "https://api.anthropic.com/*"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
       "matches": ["https://mail.google.com/*"],
