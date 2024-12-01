@@ -2,25 +2,33 @@
   "manifest_version": 3,
   "name": "Claude Gmail Assistant",
   "version": "1.0",
-  "description": "AI email assistant powered by Claude",
+  "description": "Automatically classify Gmail messages using Claude AI",
   "icons": {
     "96": "icons/icon-96-96.png",
     "144": "icons/icon-144-144.png"
   },
   "permissions": [
     "storage",
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
   "host_permissions": [
-    "https://mail.google.com/*",
+    "*://mail.google.com/*",
     "https://api.anthropic.com/*"
   ],
+  "oauth2": {
+    "client_id": "${YOUR_CLIENT_ID}",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.labels",
+      "https://www.googleapis.com/auth/gmail.metadata"
+    ]
+  },
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://mail.google.com/*"],
+      "matches": ["*://mail.google.com/*"],
       "js": ["content.js"],
       "css": ["styles.css"]
     }

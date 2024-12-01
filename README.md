@@ -1,54 +1,62 @@
 # Claude Gmail Assistant
 
-A minimal Chrome extension that uses Claude AI to automatically classify your emails into categories (Travel, Work, Other).
+A Chrome extension that uses Claude AI to automatically classify your Gmail messages.
 
 ## Features
-
-- 🤖 Real-time email classification using Claude 3
-- 🎯 Simple categorization: Travel, Work, or Other
-- 🔒 Privacy-focused: only processes email subject and sender
-- ⚡ Lightweight: classifies emails as they appear
-- 🧹 Clean: no UI modifications to Gmail
+- Classify selected emails with one click
+- Uses Claude 3 Sonnet for intelligent categorization
+- Minimal permissions required
+- Privacy-focused (only processes email subject and sender)
+- Simple, clean interface
 
 ## Installation
-
 1. Clone this repository
-2. Open Chrome and go to `chrome://extensions`
-3. Enable Developer Mode
+2. Open Chrome and navigate to `chrome://extensions`
+3. Enable "Developer mode"
 4. Click "Load unpacked" and select the `extension` directory
-5. Click the extension icon and enter your Anthropic API key
+5. Add your Claude API key in the extension popup
 
-## Privacy & Security
+## Usage
+1. Open Gmail in Chrome
+2. Select one or more emails in your inbox
+3. Click the extension icon
+4. Click "Classify Selected" to categorize emails
+5. Classifications will be shown as data attributes (future: Gmail labels)
 
-⚠️ This is a personal-use tool that stores your Anthropic API key in Chrome's storage. While we use Chrome's secure storage, a production implementation should use a backend server to handle API calls.
-
-- Only sends email subject and sender to Claude API
-- No email content is transmitted
-- API keys stored in Chrome's sync storage
-- Background script isolates API calls
-
-## Development
-
-```bash
-# Clone repository
-git clone https://github.com/yourusername/claude-gmail-assistant.git
-
-# Load in Chrome
-# Follow installation steps above
-```
-
-## Technical Details
-
-- Chrome Extension (Manifest V3)
-- Uses Claude 3 Sonnet model
-- Service Worker architecture for API handling
-- Real-time DOM observation for email detection
+## Development Notes
+- Built with Chrome Extension Manifest V3
+- Direct integration with Anthropic's Claude API
+- Uses Chrome Storage API for settings
+- Content script for Gmail interaction
+- Background service worker for API calls
 
 ## Cost Considerations
-
 - Approximately $0.00533 per email classification
 - Consider usage patterns for your inbox volume
 
-## License
+## Future Improvements
+- Implement Gmail API integration for:
+  - Reliable label management
+  - Background processing
+  - Batch operations
+  - No DOM dependency
+  - Future-proof implementation
+- Add user-configurable classification rules
+- Support bulk email classification
+- Add settings for customization
 
+## Security Notes
+- API key stored in Chrome sync storage
+- Minimal data sent to Anthropic (subject/sender only)
+- Required permissions:
+  - `storage`: For API key
+  - `tabs`: For Gmail tab detection
+  - `host_permissions`: For Gmail and Anthropic API access
+
+## Known Limitations
+- Requires Gmail tab to be open
+- Manual classification only (no auto-classification yet)
+- Browser-based API calls (future: proper backend)
+
+## License
 [Add your chosen license]
