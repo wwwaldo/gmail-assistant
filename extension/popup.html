@@ -47,6 +47,12 @@
     button.danger:hover {
       background: #c82333;
     }
+    button.secondary {
+      background: #34a853;
+    }
+    button.secondary:hover {
+      background: #2d8d47;
+    }
     .status {
       font-size: 14px;
       color: #34a853;
@@ -57,6 +63,10 @@
     .status.show {
       opacity: 1;
     }
+    .button-group {
+      display: flex;
+      gap: 8px;
+    }
   </style>
 </head>
 <body>
@@ -65,7 +75,10 @@
       <label for="api-key">Claude API Key</label>
       <input type="password" id="api-key" placeholder="sk-...">
     </div>
-    <button id="save">Save</button>
+    <div class="button-group">
+      <button id="save">Save</button>
+      <button id="classify" class="secondary">Classify Selected</button>
+    </div>
     <button id="reset" class="danger">Reset Extension</button>
     <div id="status" class="status">Settings saved!</div>
   </div>
