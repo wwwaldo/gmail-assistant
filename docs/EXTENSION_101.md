@@ -43,6 +43,101 @@ Popup <-> Background <-> Content Script
 - Must return `true` for async responses
 - Use callbacks or Promises for responses
 
+### Claude Gmail Assistant Flow
+
+1. User Interaction Flow:
+```
+[User clicks "Classify"] -> Popup
+     |
+     v
+Popup -> Content Script: { type: 'classifySelected' }
+     |
+     v
+Content Script finds selected emails
+     |
+     v
+For each email:
+  Content -> Background: { type: 'classifyEmail', emailContent: {...} }
+     |
+     v
+Background -> Claude API: Classify email
+     |
+     v
+Background -> Content: Classification result
+     |
+     v
+Content Script: Updates email DOM with data-claude-category
+     |
+     v
+Content -> Popup: { count: X } emails classified
+     |
+     v
+Popup: Shows success message
+```
+
+2. Reset Flow:
+```
+[User clicks "Reset"] -> Popup
+     |
+     v
+Popup -> Content Script: { type: 'reset' }
+     |
+     v
+Content Script: Removes all data-claude-category attributes
+     |
+     v
+Content -> Popup: { success: true }
+```
+
+3. API Key Flow:
+```
+[User enters API key] -> Popup
+     |
+     v
+Popup -> Chrome Storage: Save API key
+     |
+     v
+Background: Reads API key from storage when needed
+```
+
+### Message Types
+
+1. From Popup:
+- `classifySelected`: Request to classify selected emails
+- `reset`: Request to clear all classifications
+
+2. From Content Script:
+- `classifyEmail`: Request to classify single email
+  ```javascript
+  {
+    type: 'classifyEmail',
+    emailContent: {
+      subject: string,
+      sender: string
+    }
+  }
+  ```
+
+3. From Background:
+- Classification result:
+  ```javascript
+  {
+    category: string,
+    error?: string
+  }
+  ```
+
+### State Management
+
+1. Temporary State:
+- Selected emails (Content Script)
+- Classification in progress (Popup)
+- Status messages (Popup)
+
+2. Persistent State:
+- API key (Chrome Storage)
+- Email classifications (DOM attributes)
+
 ### Common Patterns
 1. Popup -> Content: "Do something in the page"
 2. Content -> Background: "Make an API call"
